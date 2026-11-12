@@ -81,6 +81,7 @@ export default function Form(){
           <TextInput
             label = "sequence"
             form_label = "Sequence"
+            placeholder = {"NLNIVGNISH\nor FASTA:\n>peptide_1\nNLNIVGNISH"}
             setQuery = {setQuery}
             query = {query}
             rows = {4}/>

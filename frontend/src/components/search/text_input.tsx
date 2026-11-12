@@ -4,10 +4,11 @@ interface Props{
   label: string;
   form_label: string;
   rows: number;
+  placeholder?: string;
   setQuery: React.Dispatch<React.SetStateAction<any>>;
   query: {};
 }
-export default function TextInput({label, form_label, rows, setQuery, query}:Props){
+export default function TextInput({label, form_label, rows, placeholder, setQuery, query}:Props){
     const [value, setValue] = useState("");
     useEffect(()=>{
         setQuery({...query, [label]: value})
@@ -19,6 +20,7 @@ export default function TextInput({label, form_label, rows, setQuery, query}:Pro
                 label={form_label}
                 multiline
                 rows={rows}
+                placeholder={placeholder}
                 fullWidth
                 variant="filled"
                 value={value}

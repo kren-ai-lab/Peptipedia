@@ -596,7 +596,14 @@ def parse_data_query(query, model, stmt):
         if query["is_canon"]:
             stmt = stmt.where(model.is_canon == query["is_canon"])
     if "sequence" in query.keys():
-        stmt = stmt.where(model.sequence.like(f'%{query["sequence"]}%'))
+        # Accept FASTA: drop ">" header lines and whitespace.
+        # shortcut: several FASTA records get joined into one sequence, split them if multi-search is needed
+        sequence = "".join(
+            line.strip()
+            for line in query["sequence"].splitlines()
+            if not line.startswith(">")
+        )
+        stmt = stmt.where(model.sequence.like(f"%{sequence}%"))
     if "swissprot_id" in query.keys():
         stmt = stmt.where(model.swissprot_id == query["swissprot_id"])
     if "activities" in query.keys():
